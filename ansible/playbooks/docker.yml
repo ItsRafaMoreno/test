@@ -1,12 +1,12 @@
 - hosts: localhost 
   become: True 
   tasks:
-  - name: atualizar todos os pacotes para a última versão
+  - name: update
     apt:
       name: "*"
       state: latest
 
-  - name: instalar dependencias do docker
+  - name: install docker dep
     apt:
       name: 
       - apt-transport-https
@@ -17,17 +17,17 @@
       state: latest
       update_cache: True   
 
-  - name: adicionar chave GPG do docker
+  - name: add key
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
       state: present
 
-  - name: adicionar o repositorio oficial do docker
+  - name: add rep
     apt_repository:
       repo: deb https://download.docker.com/linux/ubuntu bionic stable
       state: present
 
-  - name: instalar o docker
+  - name: install docker
     apt:
       name:
       - docker-ce
@@ -36,18 +36,18 @@
       state: latest
       update_cache: True
 
-  - name: ativar o serviço docker 
+  - name: activate service
     service:
       name: docker
       state: started
       enabled: True
 
-  - name: configurar o daemon do docker
+  - name: config
     copy:
       src: daemon.json
       dest: /etc/docker/daemon.json
 
-  - name: reiniciar o docker
+  - name: reboot docker
     service:
       name: docker
       state: restarted
