@@ -1,0 +1,6 @@
+{
+    "log-driver": "syslog",
+    "log-opts": {
+        "syslog-address": "udp://localhost:514"
+    }
+}
